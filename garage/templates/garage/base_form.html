@@ -1,0 +1,12 @@
+{% extends 'garage/base.html' %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">{{ btn_accept }}</button>
+    <button type="reset" class="btn btn-danger">{{ btn_clear }}</button>
+</form>
+{% endblock content %}

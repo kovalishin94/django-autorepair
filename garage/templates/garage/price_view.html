@@ -1,0 +1,23 @@
+{% extends 'garage/base.html' %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+{% block content %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Наименование</th>
+        <th scope="col">Стоимость</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for price in object_list %}
+      <tr class="table-secondary">
+        <td><a href="{% url 'price_detail' price.pk %}">{{ price.type_of_repair }}</a></td>
+        <td>{{ price.price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a class="btn btn-success" href="{% url 'add_price' %}" role="button">Добавить услугу</a>
+{% endblock content %}

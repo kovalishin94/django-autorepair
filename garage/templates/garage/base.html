@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'garage/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'garage/css/style.css' %}">
+    <link rel="icon" href="{% static 'garage/favicon.ico' %}" type="image/x-icon">
+    <title>
+        {% block title %}
+        {{ title }}
+        {% endblock title %}
+    </title>
+    
+</head>
+<body>
+    {% block navbar %}
+    <nav class="navbar navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'Home' %}">Автосервис ООО "Развалюха"</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Меню</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'Home' %}">Главная</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin/">Сайт администратора</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'reg' %}">Регистрация</a>
+                  <a class="nav-link" href="{% url 'auth' %}">Авторизация</a>
+                  {% if user.is_authenticated %}
+                  <a class="nav-link" href="{% url 'logout' %}">Выход</a>
+                  {% endif %}
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'help' %}">Помощь</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'price_list' %}">Прайс-лист</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'manufact_list' %}">Производители</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Добавить
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item" href="{% url 'add_carmodel' %}">Добавить модель</a></li>
+                    <li><a class="dropdown-item" href="{% url 'add_mechanics' %}">Добавить механика</a></li>
+                    <li><a class="dropdown-item" href="{% url 'add_owners' %}">Добавить клиента</a></li>
+                    <li><a class="dropdown-item" href="{% url 'add_car' %}">Добавить автомобиль</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Просмотр
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item" href="{% url 'cars_view' %}">Автомобили в работе</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    {% endblock navbar %}
+    <header>
+    <div class="container" id="concon">
+      <div class="row" id="conrow">
+        <!-- <div class="col-md-12"> -->
+          <div class="py-3">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+              {{ message }} 
+            </div>
+            {% endfor %} 
+            {% endif %}
+            {% block content %}
+            {% endblock content %}
+          </div>
+        <!-- </div> -->
+      </div>
+    </div>
+  </header>
+    
+    <script src="{% static 'garage/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

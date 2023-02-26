@@ -1,0 +1,14 @@
+{% extends 'garage/base.html' %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="uname">Логин:</label>
+    <p><input type="text" name="username" id="uname"></p>
+    <label for="password">Пароль:</label>
+    <p><input type="password" name="password" id="password"></p>
+    <button type="submit" class="btn btn-success">Добавить</button>
+</form>
+{% endblock content %}

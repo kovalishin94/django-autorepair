@@ -1,0 +1,21 @@
+{% extends 'garage/base.html' %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+{% block content %}
+<div class="card-group">
+<div class="col-md-3">
+<div class="card">
+    <img src="{{ cars.photo.url }}" class="card-img-top" alt="..." height="300px">
+    <div class="card-body">
+      <h5 class="card-title">{{ cars.manufacturer }}  {{ cars.car_model }} {{ cars.gov_number }}</h5>
+      <p class="card-text">Дата обращения: {{ cars.date_of_application|date:"d.m.y" }}</p>
+      <p class="card-text">Дата выполнения ремонта: {{ cars.date_of_issue|date:"d.m.y" }}</p>
+      <p class="card-text">Виды работ: <ol>{% for i in cars.type_of_repair.all %}<li>{{ i }}</li>{% endfor %}</ol></p>
+      <p class="card-text">Стоимость ремонта: {{ cars.cnt }} </p>
+      <p class="card-text">Владелец: {{ cars.owner.first_name }} {{ cars.owner.second_name }}</p>   
+    </div>
+</div>
+</div>
+</div>
+{% endblock content %}

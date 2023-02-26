@@ -1,0 +1,29 @@
+{% extends 'garage/base.html' %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+{% block content %}
+<div class="col-md-4">
+  {% for item in object_list %}
+  <div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="flush-headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ item.pk }}" aria-expanded="false" aria-controls="flush-collapseOne">
+          {{ item.title }}
+        </button>
+      </h2>
+      <div id="flush-collapse{{ item.pk }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">
+          {% for j in item.carmod.all %}
+          <p><a href="{% url 'carmodel_update' j.pk %}">{{ j.title }}</a></p>
+          {% endfor %}
+          <a class="btn btn-primary btn-sm mt-1" href="{% url 'manufact_update' item.pk %}" role="button">Редактировать</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <a class="btn btn-success mt-4" href="{% url 'add_manufacturers' %}" role="button">Добавить производителя</a>
+  <a class="btn btn-success mt-4" href="{% url 'add_carmodel' %}" role="button">Добавить модель</a>
+</div>
+{% endblock content %}
