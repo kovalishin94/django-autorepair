@@ -18,7 +18,7 @@ urlpatterns = [
     path('carmodel/<int:pk>', UpdateModelCar.as_view(), name='carmodel_update'),
     path('cars/<int:pk>', DetailCars.as_view(), name='car_detail'),
     path('help/', HelpPage.as_view(), name='help'),
-    path('reg/', reg_user, name='reg'),
+    path('reg/', CreateUser.as_view(), name='reg'),
     path('auth/', auth_user, name='auth'),
     path('logout/', logout_user, name='logout'),
 ]

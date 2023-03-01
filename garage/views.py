@@ -189,19 +189,21 @@ class HelpPage(TemplateView):
     template_name = 'garage/help.html'
 
 
+class CreateUser(CreateView):
+    form_class = UserForm
+    template_name = 'garage/base_form.html'
+    success_url = reverse_lazy('Home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Регистрация пользователя'
+        context['btn_accept'] = 'Зарегистрироваться'
+        context['btn_clear'] = 'Очистить'
+        return context
+
+
 def index(request):
     return render(request, 'garage/base.html', {'title': 'Главная'})
-
-
-def reg_user(request):
-    if request.method == 'POST':
-        form = UserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('Home')
-    else:
-        form = UserForm()
-    return render(request, 'garage/base_form.html', {'form': form})
 
 
 def auth_user(request):
