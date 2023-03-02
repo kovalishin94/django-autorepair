@@ -42,15 +42,10 @@
                   {% if user.is_authenticated %}
                   <a class="nav-link" href="{% url 'logout' %}">Выход</a>
                   {% endif %}
-                </li>
-                <li class="nav-item">
                   <a class="nav-link" href="{% url 'help' %}">Помощь</a>
-                </li>
-                <li class="nav-item">
                   <a class="nav-link" href="{% url 'price_list' %}">Прайс-лист</a>
-                </li>
-                <li class="nav-item">
                   <a class="nav-link" href="{% url 'manufact_list' %}">Производители</a>
+                  <a class="nav-link" href="{% url 'cars_view' %}">Автомобили в работе</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -61,14 +56,6 @@
                     <li><a class="dropdown-item" href="{% url 'add_mechanics' %}">Добавить механика</a></li>
                     <li><a class="dropdown-item" href="{% url 'add_owners' %}">Добавить клиента</a></li>
                     <li><a class="dropdown-item" href="{% url 'add_car' %}">Добавить автомобиль</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Просмотр
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-dark">
-                    <li><a class="dropdown-item" href="{% url 'cars_view' %}">Автомобили в работе</a></li>
                   </ul>
                 </li>
               </ul>

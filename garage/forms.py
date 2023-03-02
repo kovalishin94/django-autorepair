@@ -2,7 +2,7 @@ from django import forms
 from .models import *
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 class UserForm(UserCreationForm):
@@ -19,7 +19,6 @@ class UserForm(UserCreationForm):
         max_length=150,
         widget=forms.PasswordInput(attrs={'class': 'form-control'}),
         label='Пароль',
-
     )
     password2 = forms.CharField(
         max_length=150,
@@ -30,6 +29,24 @@ class UserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+
+class UserAuthentication(AuthenticationForm):
+    username = forms.CharField(
+        max_length=150,
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        label='Логин',
+        )
+
+    password = forms.CharField(
+        max_length=150,
+        widget=forms.PasswordInput(attrs={'class': 'form-control'}),
+        label='Пароль',
+    )
+
+    class Meta:
+        model = User
+        fields = ['username', 'password',]
 
 
 class OwnerForm(forms.ModelForm):

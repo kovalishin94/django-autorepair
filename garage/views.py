@@ -3,13 +3,14 @@ from django.shortcuts import render, redirect
 from django.db.models import Sum
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DetailView
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from .forms import *
 from .models import *
 
 
-class ListCars(ListView):
+class ListCars(LoginRequiredMixin, ListView):
     queryset = Cars.objects.select_related().order_by('date_of_issue').annotate(cnt=Sum('type_of_repair__price'))
     context_object_name = 'cars'
     template_name = 'garage/cars_view.html'
@@ -208,18 +209,17 @@ def index(request):
 
 def auth_user(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
+        form = UserAuthentication(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
             login(request, user)
             return redirect('Home')
         else:
             messages.error(request, 'Неверный логин либо пароль')
             return redirect('auth')
-    else: 
-        title = 'Авторизация'     
-        return render(request, 'garage/auth.html', {'title': title})
+    else:
+        form = UserAuthentication()     
+    return render(request, 'garage/base_form.html', {'title': 'Авторизация', 'form': form, 'btn_accept': 'Войти', 'btn_clear': 'Очистить'})
 
 
 def logout_user(request):
